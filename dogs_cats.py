@@ -15,8 +15,8 @@ os.makedirs(gen_dir) #This creates a new gen_dir directory
 # sort the files
 for thing in ["cat", "dog"]: #This partitions all of the files based on their label (cat, dog) and amount
   for (nums, animal) in [
-    (range(500),        "train"), #First 500 of dogs and cats go into the training set
-    (range(500,  1000), "val"), #Next 500 into validation set
+    (range(800),        "train"), #First 500 of dogs and cats go into the training set
+    (range(801,  1000), "val"), #Next 500 into validation set
     (range(1000, 1499), "test"), #Final 500 in the test set
   ]:
     #os.path.join creates directories under gen_dir in content called train_dir, test_dir, and val_dir
@@ -36,12 +36,12 @@ model.add(layers.Conv2D(32, (3,3), activation='relu', input_shape = (150,150,3))
 model.add(layers.MaxPooling2D((2,2)))
 model.add(layers.Conv2D(64, (3,3), activation='relu'))
 model.add(layers.MaxPooling2D((2,2)))
-model.add(layers.Dropout(0.5));
 model.add(layers.Conv2D(128, (3,3), activation='relu'))
 model.add(layers.MaxPooling2D((2,2)))
 model.add(layers.Conv2D(128, (3,3), activation='relu'))
 model.add(layers.MaxPooling2D((2,2)))
 model.add(layers.Flatten())
+model.add(layers.Dropout(0.5));
 model.add(layers.Dense(512, activation='relu'))
 model.add(layers.Dense(1, activation='sigmoid'))
 
@@ -81,7 +81,7 @@ test_generator = test_datagen.flow_from_directory(test_dir,
 history = model.fit_generator(
     train_generator, 
     steps_per_epoch=100, 
-    epochs=11,
+    epochs=23,
     validation_data = validation_generator,
     validation_steps=50)
 
